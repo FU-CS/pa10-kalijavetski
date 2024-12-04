@@ -7,11 +7,52 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GraphTest {
-    @Test void appHasAGreeting() {
-        Graph g = new Graph();
+    @Test
+    void testGraphadd() {
+        GraphDirect g = new GraphDirect();
         g.addEdge(1, 2);
         g.addEdge(2, 3);
-        assertEquals("1 2 3", g.topologicalSort());
-        assertEquals("1 2 3", g.topologicalSort());
+        assertEquals("1 2 3 ", g.topologicalSort());
+        assertEquals("1 2 3 ", g.topologicalSort());
+    }
+
+    @Test
+    void testGraph_topsort() {
+        GraphDirect g = new GraphDirect();
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(2, 4);
+        g.addEdge(3, 5);
+        assertEquals("1 2 3 5 4 ", g.topologicalSort());
+    }
+
+
+    @Test
+    void testGraph_TSempty() {
+        GraphDirect g = new GraphDirect();
+        assertEquals("", g.topologicalSort());
+    }
+
+    @Test
+    void testGraph_kahn() {
+        GraphDirect g = new GraphDirect();
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(2, 4);
+        g.addEdge(3, 5);
+        assertEquals("0 1 2 3 4 5 ", g.kahn());
+    }
+
+    @Test
+    void testGraph_kahn_two() {
+        GraphDirect g = new GraphDirect();
+        g.addEdge(0, 1);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(2, 4);
+        g.addEdge(4, 3);
+        g.addEdge(3, 5);
+        assertEquals("0 1 2 4 3 5 ", g.kahn());
     }
 }
